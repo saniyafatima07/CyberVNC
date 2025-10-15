@@ -15,7 +15,6 @@ This directory contains Ansible playbooks for automated lab provisioning and con
 - `realvnc-install.yml` - RealVNC installation and configuration
 - `suricata-setup.yml` - Suricata IDS/IPS setup
 - `zeek-setup.yml` - Zeek network analysis setup
-- `elk-stack-setup.yml` - Elasticsearch, Logstash, Kibana setup
 
 ## Inventory
 
@@ -34,7 +33,7 @@ vnc_port: 5900
 vnc_display: ":1"
 
 # Network Configuration
-lab_network: "192.168.100.0/24"
+lab_network: "192.168.100.50"
 vnc_server_ip: "192.168.100.10"
 attacker_ip: "192.168.100.20"
 monitoring_ip: "192.168.100.30"
