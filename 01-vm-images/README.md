@@ -13,7 +13,6 @@ This directory contains VM images and Ansible playbooks for automated lab provis
 
 ### Base Images
 - **Ubuntu 22.04 LTS** - Primary lab environment
-- **CentOS 8** - Alternative Linux distribution
 - **Windows Server 2019** - Windows VNC server testing
 
 ### Pre-installed Software
@@ -22,7 +21,6 @@ This directory contains VM images and Ansible playbooks for automated lab provis
 - Wireshark
 - Suricata
 - Zeek (Bro)
-- ELK Stack components
 - Python 3.8+
 - Ansible
 
@@ -44,9 +42,9 @@ ansible-playbook -i inventory lab-setup.yml
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Attacker VM   │    │   VNC Server    │    │  Monitoring VM   │
+│   Attacker VM   │    │   VNC Server    │    │  Monitoring VM  │
 │                 │    │                 │    │                 │
-│ - Kali Linux    │◄──►│ - Ubuntu 22.04  │◄──►│ - ELK Stack     │
+│ - Kali Linux    │◄──►│ - Ubuntu 22.04  │◄──►│                 │
 │ - Attack Tools  │    │ - TigerVNC      │    │ - Suricata      │
 │ - Python Scripts│    │ - RealVNC       │    │ - Zeek          │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
