@@ -42,15 +42,11 @@ cd CyberVNC
 cd 01-vm-images
 vagrant up
 
-# 3. Configure monitoring
-cd ../07-elk-stack
-docker-compose up -d
-
-# 4. Deploy defense mechanisms
+# 3. Deploy defense mechanisms
 cd ../09-defense-mechanisms
 python3 defense-deployer.py --config defense-config.yaml
 
-# 5. Run attack simulations
+# 4. Run attack simulations
 cd ../06-test-harness
 python3 test-runner.py --config test-config.yaml
 ```
@@ -87,25 +83,7 @@ ansible-playbook -i inventory/hosts.yml vnc-server-setup.yml
 ansible-playbook -i inventory/hosts.yml vnc-server-setup.yml --check
 ```
 
-#### Step 3: Monitoring Setup
-```bash
-# Navigate to ELK stack
-cd ../07-elk-stack
-
-# Configure Elasticsearch
-vim elasticsearch.yml
-
-# Configure Logstash
-vim logstash.conf
-
-# Start ELK stack
-docker-compose up -d
-
-# Verify ELK stack
-curl http://localhost:9200/_cluster/health
-```
-
-#### Step 4: Security Configuration
+#### Step 3: Security Configuration
 ```bash
 # Navigate to firewall configs
 cd ../05-firewall-configs
