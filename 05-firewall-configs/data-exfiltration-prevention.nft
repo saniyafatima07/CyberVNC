@@ -1,0 +1,12 @@
+#!/usr/sbin/nft -f
+table inet vnc_security {
+  chain input {
+    type filter hook input priority 0;
+    ct state established,related accept
+    tcp dport 5900-5910 ip saddr 192.168.100.0/24 accept
+    tcp dport 5900-5910 drop
+    tcp dport { 21,22,80,443,8080 } drop
+    udp dport { 53,123,161 } drop
+    log prefix "VNC-ACCESS: " flags all
+  }
+}

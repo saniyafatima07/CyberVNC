@@ -1,0 +1,15 @@
+targets:
+  - host: 192.168.100.10
+    port: 5900
+    vnc_type: tigervnc
+
+scenarios:
+  - name: file_transfer_exfiltration
+    type: data_exfiltration
+    files:
+      - /etc/hosts
+      - /etc/passwd
+
+monitoring:
+  log_level: INFO
+  collect_metrics: true

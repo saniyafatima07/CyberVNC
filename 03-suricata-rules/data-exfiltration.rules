@@ -1,0 +1,3 @@
+alert tcp any 5900 -> any any (msg:"Potential VNC Data Exfiltration"; flow:from_server,established; content:"File Transfer"; sid:1000101; rev:1;)
+alert tcp any 5900 -> any any (msg:"VNC Clipboard Access"; flow:from_server,established; content:"Clipboard"; sid:1000102; rev:1;)
+alert tcp any any -> any 5900 (msg:"VNC Brute Force Attempt"; flow:to_server,established; threshold:type both, track by_src, count 5, seconds 60; sid:1000201; rev:1;)

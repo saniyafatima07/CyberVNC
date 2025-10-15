@@ -1,0 +1,79 @@
+---
+- name: Configure VNC server(s)
+  hosts: vnc_servers
+  become: true
+  vars:
+    vnc_user: lab
+    vnc_display: ":1"
+    vnc_password: "SecureVNC123!"
+  tasks:
+    - name: Install TigerVNC server
+      apt:
+        name:
+          - tigervnc-standalone-server
+          - tigervnc-common
+        state: present
+        update_cache: true
+
+    - name: Ensure {{ vnc_user }} user exists
+      user:
+        name: "{{ vnc_user }}"
+        state: present
+        shell: /bin/bash
+        create_home: true
+
+    - name: Set VNC password for {{ vnc_user }}
+      become_user: "{{ vnc_user }}"
+      shell: |
+        set -o pipefail
+        mkdir -p ~/.vnc
+        echo "{{ vnc_password }}" | vncpasswd -f > ~/.vnc/passwd
+        chmod 600 ~/.vnc/passwd
+      args:
+        executable: /bin/bash
+
+    - name: Create systemd unit for VNC server
+      copy:
+        dest: /etc/systemd/system/vncserver@.service
+        content: |
+          [Unit]
+          Description=Start TigerVNC server at startup
+          After=syslog.target network.target
+
+          [Service]
+          Type=forking
+          User=%i
+          PAMName=login
+          PIDFile=/home/%i/.vnc/%H{{ vnc_display }}.pid
+          ExecStart=/usr/bin/vncserver {{ vnc_display }} -localhost no
+          ExecStop=/usr/bin/vncserver -kill {{ vnc_display }}
+
+          [Install]
+          WantedBy=multi-user.target
+        mode: '0644'
+
+    - name: Enable and start VNC service for {{ vnc_user }}
+      systemd:
+        name: "vncserver@{{ vnc_user }}.service"
+        enabled: true
+        state: started
+
+- name: Configure monitoring node
+  hosts: monitoring
+  become: true
+  tasks:
+    - name: Install dependencies
+      apt:
+        name:
+          - docker.io
+          - docker-compose
+          - suricata
+          - zeek
+        state: present
+        update_cache: true
+
+    - name: Enable docker
+      systemd:
+        name: docker
+        enabled: true
+        state: started
