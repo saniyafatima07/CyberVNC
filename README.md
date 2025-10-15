@@ -19,16 +19,14 @@ Internet connectivity has enabled global LAN systems to span continents, making 
 
 ```
 CyberVNC/
-├── 01-vm-images/                 # VM images and provisioning
-├── 02-ansible-playbooks/         # Lab automation
-├── 03-suricata-rules/           # IDS/IPS rules
-├── 04-zeek-scripts/             # Network analysis scripts
-├── 05-firewall-configs/         # iptables/nftables profiles
-├── 06-test-harness/             # Attack simulation scripts
-├── 07-elk-stack/                # Log analysis dashboards
-├── 08-attack-scenarios/         # Data exfiltration techniques
-├── 09-defense-mechanisms/       # Detection and prevention tools
-├── 10-documentation/            # Reports and runbooks
+├── vm-images/                 # VM images and provisioning
+├── ansible-playbooks/         # Lab automation
+├── suricata-rules/           # IDS/IPS rules
+├── zeek-scripts/             # Network analysis scripts
+├── firewall-configs/         # iptables/nftables profiles
+├── test-harness/             # Attack simulation scripts
+├── attack-scenarios/         # Data exfiltration techniques
+├── defense-mechanisms/       # Detection and prevention tools
 └── scripts/                     # Utility scripts
 ```
 
